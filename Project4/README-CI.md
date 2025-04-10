@@ -83,3 +83,42 @@ docker run -t --link mysql-docker:mysql -p 5000:5000 mtgcollectionapp-image
 [dockerhub repo](https://hub.docker.com/repository/docker/timmonsevan/timmons-ceg3120/general)
 
 <p>The credentials to login to my app after running are username: root password: toor</p>
+
+## Part 2 GitHub Actions and DockerHub
+
+### Configuring GitHub Repository Secrets
+
+<p>To create a Personal Access Token for Docker Hub, navigate to the top right corner of the webpage, click your inital, go to account settings, then to personal access tokens. Here you click
+generate new token, which will walk you through the two step process, where you will decide permissions. I gave full read write and delete permissions because I wasn't fully comprehending what I was doing at the start, but now that I'm reflecting on it, I should have given only Read and Write permissions. GitHub Actions will not be deleting anything from DockerHub. Once the token is generated, DO NOT LEAVE OR NAVIGATE AWAY FROM THAT PAGE. On github, navigate to your repo's settings, then Secrets and Variables, then Actions. In that screen you will click on the New repository secret button. You will ultimately do this twice, once to create a secret named DOCKER_USERNAME, where the secret is your docker username, and the other time to create DOCKER_TOKEN,
+which is your personal access token on the docker page you just generated, that once you navigate away from you will not see. These secrets will be used by github actions to access your Docker account.</p>
+
+### CI with Github actions
+
+<p>At this point I'm going to put a link to my personal github and public repo of the entire app demo that I am working with.</p>
+
+[Evan's personal Github repo for the app](https://github.com/timmonsevan/MtgCollectionApp)
+
+<p>Since I am incorporating my own app into this project, I chose to do this part's work in that repo as this is what makes sense for continuous integration continous deployment. If I was using the agile app the course work is based on, I would have done the github actions in the class repo. I will clarify this with Prof. Duncan in person.</p>
+
+[my workflow yml](MtgCollectionApp/.github/workflows/pushToDocker.yml)
+
+<p>As straightforward as this yml file appears, it took me several builds to get working. I started with a CI template from the GitHub recommended templates, hence the name CI. This workflow triggers ON PUSH whenever the main branch is pushed. Then the actual job(s) my workflow does, in this case it is one job, in three steps:</p>
+
+- checkout code
+- docker login
+- build container and push to docker hub
+
+### Testing and Validating
+
+<p>When your workflow triggers succesfully, navigating to the actions tab will display present and past workflow triggers with a big nasty red x for if it failed, yellow for if it's working currently, and green if it succeeded. I knew my workflow worked properly because the green arrow happened, and then I refreshed my docker hub repo and it showed that it had been pushed to at that moment.</p>
+
+![workflows screenshot](./workflows.PNG)
+
+![dockerhub repo](./dockerhub.PNG)
+
+<p>Then the final test was to run the app from containers after pulling the image from docker hub using the following commands</p>
+
+```
+docker pull timmonsevan/timmons-ceg3120:latest
+docker run -t --link mysql-docker:mysql -p 5000:5000 timmonsevan/timmons-ceg3120:latest
+```
