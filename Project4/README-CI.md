@@ -100,7 +100,7 @@ which is your personal access token on the docker page you just generated, that 
 
 <p>Since I am incorporating my own app into this project, I chose to do this part's work in that repo as this is what makes sense for continuous integration continous deployment. If I was using the agile app the course work is based on, I would have done the github actions in the class repo. I will clarify this with Prof. Duncan in person.</p>
 
-[my workflow yml](MtgCollectionApp/.github/workflows/pushToDocker.yml)
+[my workflow yml](./pushToDocker.yml)
 
 <p>As straightforward as this yml file appears, it took me several builds to get working. I started with a CI template from the GitHub recommended templates, hence the name CI. This workflow triggers ON PUSH whenever the main branch is pushed. Then the actual job(s) my workflow does, in this case it is one job, in three steps:</p>
 
