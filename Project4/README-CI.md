@@ -72,7 +72,7 @@ docker run -t --link mysql-docker:mysql -p 5000:5000 mtgcollectionapp-image
 
 ### DockerHub Repo
 
-<p>To setup a PAT, I go to > account settings > personal access tokens, click generate new token and follow the two step procedure thereafter to generate it and then connect with it using</p>
+<p>To setup a PAT, I go to > account settings > personal access tokens, click generate new token and follow the two step procedure thereafter to generate it, set permissions, which should be READ and WRITE for the scope of the project, however since I'm building my own app I chose full READ WRITE and DELETE permissions;  and then connect with it using</p>
 
 `docker login -u <my username>`
 
@@ -80,16 +80,28 @@ docker run -t --link mysql-docker:mysql -p 5000:5000 mtgcollectionapp-image
 
 `docker push timmonsevan/timmons-ceg3120:latest`
 
-[dockerhub repo](https://hub.docker.com/repository/docker/timmonsevan/timmons-ceg3120/general)
+[dockerhub repo](https://hub.docker.com/repository/docker/timmonsevan/timmons-ceg3120/general/tags)
 
-<p>The credentials to login to my app after running are username: root password: toor</p>
+<p>The credentials to login to my app after running are username: root password: toor. Following are some images of my app running from containers.</p>
+
+![loginpage](./loginpage.PNG)
+
+![homepage1](./homepage1.PNG)
+
+![addpage](./addpage.PNG)
+
+![updatepage](./updatepage.PNG)
+
+![delete](./delete.PNG)
+
+![homepage2](./homepage2.PNG)
 
 ## Part 2 GitHub Actions and DockerHub
 
 ### Configuring GitHub Repository Secrets
 
 <p>To create a Personal Access Token for Docker Hub, navigate to the top right corner of the webpage, click your inital, go to account settings, then to personal access tokens. Here you click
-generate new token, which will walk you through the two step process, where you will decide permissions. I gave full read write and delete permissions because I wasn't fully comprehending what I was doing at the start, but now that I'm reflecting on it, I should have given only Read and Write permissions. GitHub Actions will not be deleting anything from DockerHub. Once the token is generated, DO NOT LEAVE OR NAVIGATE AWAY FROM THAT PAGE. On github, navigate to your repo's settings, then Secrets and Variables, then Actions. In that screen you will click on the New repository secret button. You will ultimately do this twice, once to create a secret named DOCKER_USERNAME, where the secret is your docker username, and the other time to create DOCKER_TOKEN,
+generate new token, which will walk you through the two step process. Once the token is generated, DO NOT LEAVE OR NAVIGATE AWAY FROM THAT PAGE. On github, navigate to your repo's settings, then Secrets and Variables, then Actions. In that screen you will click on the New repository secret button. You will ultimately do this twice, once to create a secret named DOCKER_USERNAME, where the secret is your docker username, and the other time to create DOCKER_TOKEN,
 which is your personal access token on the docker page you just generated, that once you navigate away from you will not see. These secrets will be used by github actions to access your Docker account.</p>
 
 ### CI with Github actions
