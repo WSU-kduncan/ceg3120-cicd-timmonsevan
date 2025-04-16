@@ -84,7 +84,7 @@ docker run -t --link mysql-docker:mysql -p 5000:5000 mtgcollectionapp-image
 
 <p>The credentials to login to my app after running are username: root password: toor. Following are some images of my app running from containers.</p>
 
-![loginpage](./loginpage.PNG)
+![loginpage](./login.PNG)
 
 ![homepage1](./homepage1.PNG)
 
