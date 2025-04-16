@@ -134,3 +134,9 @@ which is your personal access token on the docker page you just generated, that 
 docker pull timmonsevan/timmons-ceg3120:latest
 docker run -t --link mysql-docker:mysql -p 5000:5000 timmonsevan/timmons-ceg3120:latest
 ```
+
+## CI Project Overview
+
+<p>This was easily one of the coolest projects I've ever gotten to work on, where I took an app I built and set it up inside a continuously integrating life cycle, where I have my app with it's source code and dependencies and libraries, and it would be silly to go through step 1 of this project (where we Dockerize the app) manually every time you wanted to update your app... even with my small app it was a pain to do once, and I even did it two or three more times over before I moved to part two, where I made a workflow action in GitHub that triggered when I update the main branch; I push to GitHub, GitHub then checkouts the main branch and makes sure they're not diverging, then it signs into docker, and build the container and pushes it to my docker repo, all in about thirty seconds or so! There were a lot of tools and moving parts in this project, so to summarize, there is my app which consists of all the code and dependencies and libraries associated with its functioning, and when I make an update to that and push to GitHub, GitHub then spins up an ubuntu virtual machine which perfoms a git checkout, then a docker login then builds and pushes to Docker Hub which is the repo that holds our containers that we build.</p>
+
+![CI diagram](CIdiagram.png)
